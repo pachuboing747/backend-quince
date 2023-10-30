@@ -1,0 +1,46 @@
+{
+    "paths": {
+      "/carts": {
+        "get": {
+          "summary": "Obtener lista de carros de compra",
+          "description": "Obtiene una lista de carros de compra de usuarios",
+          "responses": {
+            "200": {
+              "description": "Lista de carros de compra exitosamente obtenida"
+            },
+            "500": {
+              "description": "Error del servidor"
+            }
+          }
+        }
+      },
+      "/carts/{cartId}": {
+        "get": {
+          "summary": "Obtener un carro de compra por ID",
+          "description": "Obtiene un carro de compra por su ID",
+          "parameters": [
+            {
+              "name": "cartId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Carro de compra exitosamente obtenido"
+            },
+            "404": {
+              "description": "Carro de compra no encontrado"
+            },
+            "500": {
+              "description": "Error del servidor"
+            }
+          }
+        }
+      }
+    }
+  }
+  
