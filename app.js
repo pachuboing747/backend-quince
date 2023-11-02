@@ -14,36 +14,21 @@
   const MongoStore = require('connect-mongo')
   const passport = require('passport')
 
+  const swaggerJsDoc = require("swagger-jsdoc");
+  const swaggerUiExpress = require("swagger-ui-express");
+
   const config = require ("./config/config.js")
   const Routes = require('./routes/index.js')
   const socketManager = require('./websocket/index.js')
   const {developmentLogger,productionLogger} = require ("./logger/index.js")
   const initPassport = require('./config/passport.init.js')
-  
-  const swaggerJsDoc = require("swagger-jsdoc");
-  const swaggerUiExpress = require("swagger-ui-express");
-
-  const swaggerOptions = {
-  definition: {
-    openapi: "3.0.1",
-    info: {
-      title: "Productos y Carritos API",
-      description: "Documentación de productos y carritos de compra",
-    },
-  },
-  apis: [
-    path.join(__dirname, 'doc/products.json'),
-    path.join(__dirname, 'doc/carts.json'),
-  ],
-  };
-
-  const specs = swaggerJsDoc(swaggerOptions);
-
 
   const loggerMidleware = require ("./middlewares/logger.middleware.js")
 
   const cartRouter = require("./routes/carts.router.js")
   const userRouter = require("./routes/api/users.router.js")
+
+  const {currentDirname} = require ("./utils/index.js")
 
   console.log(config)
 
@@ -52,6 +37,20 @@
     productionLogger.warn("conectandose a la base de datos...");
 
     await mongoose.connect(config.MONGO_URL)
+
+    const specs = swaggerJsDoc({
+      definition: {
+        openapi: "3.0.1",
+        info: {
+          title: "Productos y Carrito",
+          description: "Documentación de productos y el carrito de compras",
+        },
+      },
+      apis:[`${currentDirname}/../doc/**/*.yaml`],
+    })
+      
+    console.log(`${__dirname}/../doc/**/*.yaml`);
+
 
     const app = express() 
     const server = http.createServer(app)
@@ -63,9 +62,8 @@
     app.set('views', path.join(__dirname, '/views'))
     app.set('view engine', 'handlebars')
 
-   
-
     app.use(express.urlencoded({ extended: true }))
+
     app.use(express.json())
     app.use('/static', express.static(path.join(__dirname + '/public')))
     app.use(cookieParser('esunsecreto'))

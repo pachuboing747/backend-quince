@@ -5,13 +5,13 @@ class BaseManager {
       this.model = model
     }
 
-    // getAll() {
-    //   return this.model.find().lean()
-    // }
-
-    getAll () {
-      return generateProducts()
+    getAll() {
+      return this.model.find().lean()
     }
+
+    // getAll () {
+    //   return generateProducts()
+    // }
 
   getAllPaged(page = 1, limit = 10) {
     return this.model.paginate({}, { limit, page, lean: true })
