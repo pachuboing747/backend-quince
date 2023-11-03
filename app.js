@@ -48,9 +48,6 @@
       },
       apis:[`${currentDirname}/../doc/**/*.yaml`],
     })
-      
-    console.log(`${__dirname}/../doc/**/*.yaml`);
-
 
     const app = express() 
     const server = http.createServer(app)
