@@ -2,6 +2,8 @@ paths:
   /api/products:
     get:
       summary: Obtener todos los productos
+      tags: 
+      - Products
       responses:
         '200':
           description: 'Éxito: Lista de productos'
@@ -13,6 +15,8 @@ paths:
           description: Error del servidor
     put:
       summary: Crear un producto
+      tags: 
+      - Products
       responses:
         '200':
           description: 'Éxito al crear producto'
@@ -25,6 +29,8 @@ paths:
   /api/products/:id:
     get:
       summary: Obtener los productos por id
+      tags: 
+      - Products
       responses:
         '200':
           description: 'Se Obtienen los productos por id, obtenido desde MongoDB'
@@ -36,6 +42,8 @@ paths:
           description: Error del servidor
     delete:
       summary: Borrar los productos por id
+      tags: 
+      - Products
       responses:
         '200':
           description: 'Se borran los productos por id, obtenido desde MongoDB'
@@ -47,6 +55,8 @@ paths:
           description: Error del servidor
     put:
       summary: Crear los productos por id
+      tags: 
+      - Products
       responses:
         '200':
           description: 'Se cren los productos por id, obtenido desde MongoDB'
